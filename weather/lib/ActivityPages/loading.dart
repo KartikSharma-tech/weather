@@ -13,7 +13,7 @@ class _LoadingState extends State<Loading> {
 
     void timer(){
       // process - 5 second 
-      print("Alarm Ia Ringing ");
+      print("Alarm Is Not  Ringing Today ");
     }
 
 
