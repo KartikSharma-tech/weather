@@ -1,5 +1,4 @@
 // import 'dart:nativewrappers/_internal/vm/lib/ffi_native_type_patch.dart';
-import 'dart:ffi';
 
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
@@ -28,10 +27,24 @@ void getdata() {
 
 }
 
-void getData() async
-{
+@override
+  void initState() {
 
-get("https://mytimeapi.herokuapp.com/time/Asia/Kolkata");
+    super.initState();
+print("this is init state ");
+    getData(); 
+
+  }
+
+void getData() async {
+
+  Response response = await get(
+
+Uri.parse("https://jsonplaceholder.typicode.com/todos/1")
+  );
+
+  print(response.body);
+
 }
 
   int counter = 1;
