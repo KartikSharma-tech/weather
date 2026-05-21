@@ -1,7 +1,7 @@
-// import 'dart:nativewrappers/_internal/vm/lib/ffi_native_type_patch.dart';
+import 'dart:convert';
 
-import 'package:http/http.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -12,42 +12,36 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+  int counter = 1;
 
-void getdata() {
+  @override
+void initState() {
 
-  // process
+  super.initState();
 
-  Future.delayed(Duration(seconds: 3), () {
-
-   String  Username = "Kartik";
-
-  });
-
-
+  getData();
 
 }
 
-@override
-  void initState() {
+  void getData() async {
 
-    super.initState();
-print("this is init state ");
-    getData(); 
+    Response response = await get(
+
+      Uri.parse(
+        "https://api.openweathermap.org/data/2.5/weather?q=Jaipur&units=metric&appid=d8d0a47d5c3d846d88fb71fd9167c6db",
+      ),
+
+    );
+
+    Map data = jsonDecode(response.body);
+
+    Map tempData = data['main'];
+
+    var temp = tempData['temp'];
+
+    print(temp);
 
   }
-
-void getData() async {
-
-  Response response = await get(
-
-Uri.parse("https://jsonplaceholder.typicode.com/todos/1")
-  );
-
-  print(response.body);
-
-}
-
-  int counter = 1;
 
   @override
   Widget build(BuildContext context) {
