@@ -1,5 +1,7 @@
-import 'dart:nativewrappers/_internal/vm/lib/ffi_native_type_patch.dart';
+// import 'dart:nativewrappers/_internal/vm/lib/ffi_native_type_patch.dart';
+import 'dart:ffi';
 
+import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -22,6 +24,14 @@ void getdata() {
 
   });
 
+
+
+}
+
+void getData() async
+{
+
+get("https://mytimeapi.herokuapp.com/time/Asia/Kolkata");
 }
 
   int counter = 1;
