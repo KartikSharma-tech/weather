@@ -13,7 +13,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   int counter = 1;
-
+var temp;
   @override
 void initState() {
 
@@ -37,8 +37,7 @@ void initState() {
 
     Map tempData = data['main'];
 
-    var temp = tempData['temp'];
-
+temp = tempData['temp'];
     print(temp);
 
   }
@@ -59,9 +58,9 @@ void initState() {
         children: [
 
           Text(
-            "$counter",
-            style: TextStyle(fontSize: 40),
-          ),
+            "Weather Loading...",
+                style: TextStyle(fontSize: 25),
+            ),
 
           FloatingActionButton(
 
