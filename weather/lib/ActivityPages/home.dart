@@ -75,7 +75,7 @@ temp = tempData['temp'];
             },
 
             child: Icon(Icons.add),
-
+LORE
           ),
 
         ],
