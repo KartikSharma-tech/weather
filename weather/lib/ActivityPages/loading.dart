@@ -26,37 +26,14 @@ class _LoadingState extends State<Loading> {
       //   title: Text("hello"),
       // ),
 
-      body: Column(
-
-        mainAxisAlignment: MainAxisAlignment.center,
-
-        children: [
-
-          // Text(
-          //   "Weather App",
-          //   style: TextStyle(fontSize: 30),
-          // ),
-
-          SizedBox(height: 20),
-
-          ElevatedButton.icon(
-
-            onPressed: () {
-
-              Navigator.pushNamed(context, "/home");
-
-            },
-
-            icon: Icon(Icons.home),
-
-            label: Text("Go To Home"),
-
-          ),
-
+     body:  Center(
+      child: Column(
+        children: <Widget>[
+          Text("Mousam App"),
+          Text("Made By Kartik Sharma")
         ],
-
       ),
-
+     ),
     );
 
   }
