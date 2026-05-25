@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -11,79 +12,123 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   int counter = 1;
-var temp;
+  var temp;
   @override
-void initState() {
+  void initState() {
+    super.initState();
 
-  super.initState();
-
-  getData();
-
-}
+    getData();
+  }
 
   void getData() async {
-
     Response response = await get(
-
       Uri.parse(
         "https://api.openweathermap.org/data/2.5/weather?q=Jaipur&units=metric&appid=d8d0a47d5c3d846d88fb71fd9167c6db",
       ),
-
     );
 
     Map data = jsonDecode(response.body);
 
     Map tempData = data['main'];
 
-temp = tempData['temp'];
+    setState(() {
+      temp = tempData['temp'];
+    });
     print(temp);
-
   }
 
   @override
   Widget build(BuildContext context) {
-
+    var city_name = ["Bhilwara", "Amhedbad", "London", "Ugenda"];
+    final random = Random();
+    var city = city_name[random.nextInt(city_name.length)];
     return Scaffold(
+      body: SafeArea(
+        child: Container(
+          color: Colors.blueGrey,
+          child: Column(
+            children: [
+              Container(                // Search Wala Container
 
-      appBar: AppBar(
-        title: Text("Home Activity"),
-      ),
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                margin: EdgeInsets.symmetric(horizontal: 22, vertical: 20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
 
-      body: Column(
+                  borderRadius: BorderRadius.circular(14),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 6,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        print("Search Me");
+                      },
+                      child: Container(
+                        child: Icon(Icons.search, color: Colors.blue),
+                        margin: EdgeInsets.fromLTRB(3, 0, 7, 0),
+                      ),
+                    ),
 
-        mainAxisAlignment: MainAxisAlignment.center,
 
-        children: [
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "Search  $city",
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
 
-          Text(
-            "Weather Loading...",
-                style: TextStyle(fontSize: 25),
-            ),
-
-          FloatingActionButton(
-
-            onPressed: () {
-
-              setState(() {
-
-                counter += 1;
-
-              });
-
-            },
-
-            child: Icon(Icons.add),
-
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.white.withOpacity(0.5)
+                      ),
+                      margin: EdgeInsets.symmetric(horizontal: 25),
+                      padding: EdgeInsets.all(50),
+                      child: Text("hh"),
+                      // height: 100,
+                      
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height:300,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: Colors.white.withOpacity(0.5)
+                            ),
+                            margin: EdgeInsets.symmetric(horizontal: 25,vertical: 10),
+                            padding: EdgeInsets.all(50),
+                            child: Text("hh"),
+                            // height: 100,
+                            
+                          ),
+                  ),
+                ],
+              ),
+            ],
           ),
-
-        ],
-
+        ),
       ),
-
     );
-
   }
-
 }

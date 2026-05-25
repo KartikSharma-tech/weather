@@ -9,10 +9,25 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-  void timer() {
-    // process - 5 second
-    print("Alarm Is Not  Ringing ");
-  }
+
+  // App Start Hote he 5sec wait then home page pr redirectby context 
+  void startApp() {
+
+  Future.delayed(Duration(seconds: 5), () {
+
+    Navigator.pushReplacementNamed(context, "/home");
+
+  });
+
+}
+
+
+@override
+void initState() {
+  super.initState();
+
+  startApp();
+}
 
   @override
   Widget build(BuildContext context) {
