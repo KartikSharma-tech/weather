@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:async';
+import 'package:weather/Package Services/Worker.dart';
 
 class Loading extends StatefulWidget {
   const Loading({super.key});
@@ -12,12 +13,32 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
 
   // App Start Hote he 5sec wait then home page pr redirectby context 
-  void startApp() {
+  void startApp() async {
+
+  Worker instance =
+      Worker(location: "Bhilwara");
+
+  await instance.getData();
+
+  print(instance.temp);
 
   Future.delayed(Duration(seconds: 5), () {
 
-    Navigator.pushReplacementNamed(context, "/home");
+Navigator.pushReplacementNamed(
+  context,
+  "/home",
 
+  arguments: {
+
+    "temp_value": instance.temp,
+    "hum_value": instance.humidity,
+    "air_speed_value": instance.air_speed,
+    "desc_value": instance.description,
+    "main_value": instance.main,
+    "icon_value": instance.icon,
+
+  },
+);
   });
 
 }

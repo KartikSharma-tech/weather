@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -12,37 +13,39 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int counter = 1;
-  var temp;
-  @override
-  void initState() {
-    super.initState();
+  
+  
 
-    getData();
-  }
+  // void getData() async {
+  //   Response response = await get(
+  //     Uri.parse(
+  //       "https://api.openweathermap.org/data/2.5/weather?q=Bhilwara&appid=d8d0a47d5c3d846d88fb71fd9167c6db",
+  //     ),
+  //   );
 
-  void getData() async {
-    Response response = await get(
-      Uri.parse(
-        "https://api.openweathermap.org/data/2.5/weather?q=Jaipur&units=metric&appid=d8d0a47d5c3d846d88fb71fd9167c6db",
-      ),
-    );
+  //   Map data = jsonDecode(response.body);
 
-    Map data = jsonDecode(response.body);
+  //   Map tempData = data['main'];
 
-    Map tempData = data['main'];
-
-    setState(() {
-      temp = tempData['temp'];
-    });
-    print(temp);
-  }
+  //   setState(() {
+  //     temp = tempData['temp'];
+  //     humidity = tempData['humidity'];
+  //     Map wind = data['wind'];
+  //     air_speed = wind['speed'];
+  //     Map weather_data = data['weather'][0];
+  //     description = weather_data['description'];
+  //   });
+  //   print(temp);
+  // }
 
   @override
   Widget build(BuildContext context) {
-    var city_name = ["Bhilwara", "Amhedbad", "London", "Ugenda"];
+    Map info = ModalRoute.of(context)!.settings.arguments as Map;
+    var cityName = ["Bhilwara", "Amhedbad", "London", "Ugenda"];
     final random = Random();
-    var city = city_name[random.nextInt(city_name.length)];
+    var city = cityName[random.nextInt(cityName.length)];
+
+    print(info['temp_value']);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -91,8 +94,8 @@ class _HomeState extends State<Home> {
                           print("Search Me");
                         },
                         child: Container(
-                          child: Icon(Icons.search, color: Colors.blue),
                           margin: EdgeInsets.fromLTRB(3, 0, 7, 0),
+                          child: Icon(Icons.search, color: Colors.blue),
                         ),
                       ),
 
@@ -114,7 +117,7 @@ class _HomeState extends State<Home> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          color: Colors.white.withOpacity(0.5),
+                          color: Colors.white.withValues(alpha: 0.5),
                         ),
                         margin: EdgeInsets.symmetric(horizontal: 25),
                         padding: EdgeInsets.all(50),
@@ -124,16 +127,22 @@ class _HomeState extends State<Home> {
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text("Bad Weather....", style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold
-                                ),),
-                              Text("In Bhilwara",style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold
-                                ),)
+                                Text(
+                                 "${info['desc_value']}",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  "In Bhilwara",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ],
-                            )
+                            ),
                           ],
                         ),
 
@@ -149,14 +158,36 @@ class _HomeState extends State<Home> {
                         height: 300,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          color: Colors.white.withOpacity(0.5),
+                          color: Colors.white.withValues(alpha: 0.5),
                         ),
                         margin: EdgeInsets.symmetric(
                           horizontal: 25,
                           vertical: 10,
                         ),
                         padding: EdgeInsets.all(50),
-                        child: Text("hh"),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.thermostat,
+                              color: const Color.fromARGB(255, 15, 9, 9),
+                              size: 40,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "${info['temp_value']}°C",
+
+                                  style: TextStyle(
+                                    fontSize: 55,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
 
                         // height: 100,
                       ),
@@ -165,32 +196,82 @@ class _HomeState extends State<Home> {
                 ),
 
                 Row(
-                  // Ye Row H 2no box k liye sath vale 50-50
+                  // Ye Row H 2no box k liye sath vale Dholu Bholu
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          color: Colors.white.withOpacity(0.5),
+                          color: Colors.white.withValues(alpha: 0.5),
                         ),
                         margin: EdgeInsets.fromLTRB(20, 0, 10, 0),
                         padding: EdgeInsets.all(26),
-                        child: Text("hh"),
                         height: 150,
+
+                        // first box stttt
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(Icons.air, color: Colors.white, size: 35),
+                              ],
+                            ),
+
+                            SizedBox(height: 10),
+
+                            Text(
+                              "${info['air_speed_value']}Km/hr",
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        // first box endddd
                       ),
                     ),
                     Expanded(
+                      // Second box stttt
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          color: Colors.white.withOpacity(0.5),
+                          color: Colors.white.withValues(alpha: 0.5),
                         ),
                         margin: EdgeInsets.fromLTRB(10, 0, 20, 0),
                         padding: EdgeInsets.all(26),
-                        child: Text("h2"),
                         height: 150,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.water_drop,
+                                  color: Colors.white,
+                                  size: 35,
+                                ),
+                              ],
+                            ),
+
+                            SizedBox(height: 10),
+
+                            Text(
+"${info['hum_value']}%",                              style: TextStyle(
+                                fontSize: 22,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
+
+                      // Second box Enddddddd///
                     ),
                   ],
                 ),
