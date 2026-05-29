@@ -16,7 +16,7 @@ class _LoadingState extends State<Loading> {
   void startApp() async {
 
   Worker instance =
-      Worker(location: "Jaipur");
+      Worker(location: "Bhilwara");
 
   await instance.getData();
 

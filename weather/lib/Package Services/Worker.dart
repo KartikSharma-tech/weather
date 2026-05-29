@@ -27,27 +27,28 @@ class Worker {
 
       print(data);
       //Getting Temp,Humidity
-      Map temp_data = data['main'];
-      String getHumidity = temp_data['humidity'].toString();
-      double getTemp = temp_data['temp'].toDouble();
+      Map tempData = data['main'];
+      String getHumidity = tempData['humidity'].toString();
+      double getTemp = tempData['temp'].toDouble();
       //Getting air_speed
       Map wind = data['wind'];
-      String getAir_speed = (wind["speed"] / 0.27777777777778).toStringAsFixed(
+      String getairSpeed = (wind["speed"] / 0.27777777777778).toStringAsFixed(
         2,
       );
       //Getting Description
-      List weather_data = data['weather'];
-      Map weather_main_data = weather_data[0];
-      String getMain_des = weather_main_data['main'];
-      String getDesc = weather_main_data["description"];
+      List weatherData = data['weather'];
+      Map weatherMainData = weatherData[0];
+      String getmainDes = weatherMainData['main'];
+      String getDesc = weatherMainData["description"];
+      String icon = weatherMainData["icon"];
 
       //Assigning Values
       temp = getTemp.toStringAsFixed(2); //C
       humidity = getHumidity; // %
-      air_speed = getAir_speed.toString(); //km/hr
+      air_speed = getairSpeed.toString(); //km/hr
       description = getDesc;
-      main = getMain_des;
-      icon = weather_main_data["icon"].toString();
+      main = getmainDes;
+      icon = weatherMainData["icon"].toString();
     } catch (e) {
       print(e);
       temp = "Can't Find Data";

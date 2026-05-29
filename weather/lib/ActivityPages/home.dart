@@ -1,9 +1,6 @@
-import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -13,9 +10,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  
-  
-////////////////////////////// Not Use Ful /////////////////////////////
+  ////////////////////////////// Not Use Ful /////////////////////////////
   // void getData() async {
   //   Response response = await get(
   //     Uri.parse(
@@ -37,12 +32,15 @@ class _HomeState extends State<Home> {
   //   });
   //   print(temp);
   // }
-////////////////////////////// Not Use Ful /////////////////////////////
-
+  ////////////////////////////// Not Use Ful /////////////////////////////
 
   @override
   Widget build(BuildContext context) {
     Map info = ModalRoute.of(context)!.settings.arguments as Map;
+    String icon = info['icon_value'];
+    // String icon = "03d";
+    String icon = info['icon_value'];
+    print(icon);
     var cityName = ["Bhilwara", "Amhedbad", "London", "Ugenda"];
     final random = Random();
     var city = cityName[random.nextInt(cityName.length)];
@@ -126,11 +124,17 @@ class _HomeState extends State<Home> {
                         child: Row(
                           children: [
                             // Image.network("image insert"),
+                            // Ye link weather Auto icon k liyee h
+                            Image.network(
+                              " https://openweathermap.org/payload/api/media/file/$icon@2x.png",
+                              width: 90,
+                              height: 120,
+                            ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                 "${info['desc_value']}",
+                                  "${info['desc_value']}",
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -263,7 +267,8 @@ class _HomeState extends State<Home> {
                             SizedBox(height: 10),
 
                             Text(
-"${info['hum_value']}%",                              style: TextStyle(
+                              "${info['hum_value']}%",
+                              style: TextStyle(
                                 fontSize: 22,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
