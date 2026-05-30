@@ -10,33 +10,28 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  ////////////////////////////// Not Use Ful /////////////////////////////
-  // void getData() async {
-  //   Response response = await get(
-  //     Uri.parse(
-  //       "https://api.openweathermap.org/data/2.5/weather?q=Bhilwara&appid=d8d0a47d5c3d846d88fb71fd9167c6db",
-  //     ),
-  //   );
-
-  //   Map data = jsonDecode(response.body);
-
-  //   Map tempData = data['main'];
-
-  //   setState(() {
-  //     temp = tempData['temp'];
-  //     humidity = tempData['humidity'];
-  //     Map wind = data['wind'];
-  //     air_speed = wind['speed'];
-  //     Map weather_data = data['weather'][0];
-  //     description = weather_data['description'];
-  //   });
-  //   print(temp);
-  // }
-  ////////////////////////////// Not Use Ful /////////////////////////////
-
+  TextEditingController searchcontroller = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     Map info = ModalRoute.of(context)!.settings.arguments as Map;
+    String weatherMain = info['main_value'];
+   IconData weatherIcon = Icons.sunny;
+
+if (weatherMain == "Clouds") {
+  weatherIcon = Icons.cloud;
+}
+else if (weatherMain == "Rain") {
+  weatherIcon = Icons.umbrella;
+}
+else if (weatherMain == "Thunderstorm") {
+  weatherIcon = Icons.flash_on;
+}
+else if (weatherMain == "Snow") {
+  weatherIcon = Icons.ac_unit;
+}
+else if (weatherMain == "Mist") {
+  weatherIcon = Icons.foggy;
+}
     String icon = info['icon_value'];
     // String icon = "03d";
     // String icon = info['icon_value'];
@@ -91,7 +86,10 @@ class _HomeState extends State<Home> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          print("Search Me");
+                          print("searchcontroller.Text");
+                          Navigator.pushNamed(context, "/loading", arguments:  {
+                            "searchText":searchcontroller.text,
+                          });
                         },
                         child: Container(
                           margin: EdgeInsets.fromLTRB(3, 0, 7, 0),
@@ -101,6 +99,7 @@ class _HomeState extends State<Home> {
 
                       Expanded(
                         child: TextField(
+                          controller: searchcontroller,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: "Search  $city",
@@ -125,11 +124,12 @@ class _HomeState extends State<Home> {
                           children: [
                             // Image.network("image insert"),
                             // Ye link weather Auto icon k liyee h
-                            Image.network(
-                              " https://openweathermap.org/payload/api/media/file/$icon@2x.png",
-                              width: 90,
-                              height: 120,
-                            ),
+                            // Image.network(
+                            //   "https://openweathermap.org/img/wn/$icon@2x.png",
+                            //   width: 90,
+                            //   height: 120,
+                            // ),
+                            Icon(weatherIcon, size: 90, color: Colors.orange),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [

@@ -40,7 +40,7 @@ class Worker {
       Map weatherMainData = weatherData[0];
       String getmainDes = weatherMainData['main'];
       String getDesc = weatherMainData["description"];
-      String icon = weatherMainData["icon"];
+      // String icon = weatherMainData["icon"];
 
       //Assigning Values
       temp = getTemp.toStringAsFixed(2); //C

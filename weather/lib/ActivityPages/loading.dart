@@ -11,12 +11,12 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
+String searchCity = "Bhilwara";
 
   // App Start Hote he 5sec wait then home page pr redirectby context 
   void startApp() async {
-
   Worker instance =
-      Worker(location: "Bhilwara");
+    Worker(location: searchCity);
 
   await instance.getData();
 
@@ -52,8 +52,22 @@ void initState() {
 }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+Widget build(BuildContext context) {
+
+  final args = ModalRoute.of(context)?.settings.arguments;
+
+  if (args != null) {
+
+    Map searchData = args as Map;
+
+    if (searchData["searchText"] != null &&
+        searchData["searchText"].toString().isNotEmpty) {
+
+      searchCity = searchData["searchText"];
+    }
+  }
+
+  return Scaffold(
       // appBar: AppBar(
       //   title: Text("hello"),
       // ),
