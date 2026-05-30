@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
     Map info = ModalRoute.of(context)!.settings.arguments as Map;
     String icon = info['icon_value'];
     // String icon = "03d";
-    String icon = info['icon_value'];
+    // String icon = info['icon_value'];
     print(icon);
     var cityName = ["Bhilwara", "Amhedbad", "London", "Ugenda"];
     final random = Random();
