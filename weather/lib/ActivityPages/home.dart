@@ -10,7 +10,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  TextEditingController searchcontroller = new TextEditingController();
+  TextEditingController searchcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Map info = ModalRoute.of(context)!.settings.arguments as Map;
