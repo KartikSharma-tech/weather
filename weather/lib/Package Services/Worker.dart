@@ -14,6 +14,7 @@ class Worker {
   String? description;
   String? main;
   String? icon;
+  String? cityName;
 
   //method
   Future<void> getData() async {
@@ -24,6 +25,10 @@ class Worker {
         ),
       );
       Map data = jsonDecode(response.body);
+      if (data["cod"] != 200) {
+  throw Exception("City Not Found");
+}
+      cityName = data["name"];
 
       print(data);
       //Getting Temp,Humidity
@@ -51,11 +56,11 @@ class Worker {
       icon = weatherMainData["icon"].toString();
     } catch (e) {
       print(e);
-      temp = "Can't Find Data";
-      humidity = "Can't Find Data";
-      air_speed = "Can't Find Data";
-      description = "Can't Find Data";
-      main = "Can't Find Data";
+      temp = "NA";
+      humidity = "NA";
+      air_speed = "NA";
+      description = "City Not Found";
+      main = "NA";
       icon = "03n";
     }
   }

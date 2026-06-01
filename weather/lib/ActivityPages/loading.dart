@@ -9,68 +9,56 @@ class Loading extends StatefulWidget {
   @override
   State<Loading> createState() => _LoadingState();
 }
-
 class _LoadingState extends State<Loading> {
-String searchCity = "Bhilwara";
+  String searchCity = "Bhilwara";
+  bool hasStarted = false;
 
-  // App Start Hote he 5sec wait then home page pr redirectby context 
   void startApp() async {
-  Worker instance =
-    Worker(location: searchCity);
+    print("City = $searchCity");
 
-  await instance.getData();
+    Worker instance = Worker(location: searchCity);
 
-  print(instance.temp);
+    await instance.getData();
 
-  Future.delayed(Duration(seconds: 5), () {
+    print(instance.temp);
 
-Navigator.pushReplacementNamed(
-  context,
-  "/home",
-
-  arguments: {
-
-    "temp_value": instance.temp,
-    "hum_value": instance.humidity,
-    "air_speed_value": instance.air_speed,
-    "desc_value": instance.description,
-    "main_value": instance.main,
-    "icon_value": instance.icon,
-
-  },
-);
-  });
-
-}
-
-
-@override
-void initState() {
-  super.initState();
-
-  startApp();
-}
-
-  @override
-Widget build(BuildContext context) {
-
-  final args = ModalRoute.of(context)?.settings.arguments;
-
-  if (args != null) {
-
-    Map searchData = args as Map;
-
-    if (searchData["searchText"] != null &&
-        searchData["searchText"].toString().isNotEmpty) {
-
-      searchCity = searchData["searchText"];
-    }
+    Navigator.pushReplacementNamed(
+      context,
+      "/home",
+      arguments: {
+        "temp_value": instance.temp,
+        "hum_value": instance.humidity,
+        "air_speed_value": instance.air_speed,
+        "desc_value": instance.description,
+        "main_value": instance.main,
+        "icon_value": instance.icon,
+        "city_value": instance.cityName,
+      },
+    );
   }
 
-  return Scaffold(
-      // appBar: AppBar(
-      //   title: Text("hello"),
-      // ),
+  @override
+  Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)?.settings.arguments;
+
+    if (args != null) {
+      Map searchData = args as Map;
+
+      if (searchData["searchText"] != null &&
+          searchData["searchText"].toString().isNotEmpty) {
+        searchCity = searchData["searchText"];
+      }
+    }
+
+    if (!hasStarted) {
+      hasStarted = true;
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        startApp();
+      });
+    }
+
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -80,13 +68,12 @@ Widget build(BuildContext context) {
               width: 120,
               height: 200,
             ),
-
             Text(
               "Mousam App",
               style: TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.w500,
-                color: const Color.fromARGB(255, 245, 243, 244),
+                color: Color.fromARGB(255, 245, 243, 244),
               ),
             ),
             SizedBox(height: 15),
@@ -95,12 +82,14 @@ Widget build(BuildContext context) {
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w400,
-                color: const Color.fromARGB(255, 245, 243, 244),
+                color: Color.fromARGB(255, 245, 243, 244),
               ),
             ),
-
             SizedBox(height: 25),
-            SpinKitWave(color: Colors.pink, size: 50.0),
+            SpinKitWave(
+              color: Colors.pink,
+              size: 50.0,
+            ),
           ],
         ),
       ),
