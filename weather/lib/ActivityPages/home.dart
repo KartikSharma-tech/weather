@@ -53,11 +53,7 @@ class _HomeState extends State<Home> {
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                const Color.fromARGB(255, 51, 190, 215),
-                const Color.fromARGB(255, 76, 189, 199),
-                const Color.fromARGB(255, 20, 212, 233),
-              ],
+              colors: [Color(0xFF56CCF2), Color(0xFF2F80ED)],
             ),
           ),
         ),
@@ -204,7 +200,7 @@ class _HomeState extends State<Home> {
                         height: 210,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25),
-                          color: Colors.white.withOpacity(0.25),
+                          color: Colors.white.withValues(alpha: 0.25),
 
                           boxShadow: [
                             BoxShadow(
@@ -220,31 +216,30 @@ class _HomeState extends State<Home> {
                         ),
                         padding: EdgeInsets.all(25),
                         //
-                       child: Column(
-  crossAxisAlignment: CrossAxisAlignment.center,
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.thermostat,
+                              color: const Color.fromARGB(255, 15, 9, 9),
+                              size: 55,
+                            ),
 
-    Icon(
-      Icons.thermostat,
-      color: const Color.fromARGB(255, 15, 9, 9),
-      size: 55,
-    ),
+                            SizedBox(height: 10),
 
-    SizedBox(height: 10),
-
-    Text(
-      "${info['temp_value']}°C",
-      style: TextStyle(
-        fontSize: 60,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-  ],
-),
+                            Text(
+                              "${info['temp_value']}°C",
+                              style: TextStyle(
+                                fontSize: 60,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
                         // height: 100,
                       ),
-                      // 
+                      //
                     ),
                   ],
                 ),
@@ -339,8 +334,22 @@ class _HomeState extends State<Home> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text("Made By Kartik"),
-                      Text("Data Provided By Kartik's Weather App"),
+                     Text(
+  "Made By Kartik Sharma",
+  style: TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+  ),
+),
+
+SizedBox(height: 5),
+
+Text(
+  "Powered by OpenWeather API",
+  style: TextStyle(
+    color: Colors.white70,
+  ),
+),
                     ],
                   ),
                 ),
