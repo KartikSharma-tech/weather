@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
         elevation: 0,
         title: Row(
           children: [
-            Icon(Icons.wb_sunny),
+            Icon(Icons.wb_sunny, color: Colors.orange, size: 32),
             SizedBox(width: 10),
             Text("Weather Forecast"),
           ],
@@ -54,9 +54,9 @@ class _HomeState extends State<Home> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                const Color.fromARGB(255, 242, 163, 6),
-                const Color.fromARGB(255, 234, 230, 230),
-                const Color.fromARGB(255, 54, 239, 3),
+                const Color.fromARGB(255, 51, 190, 215),
+                const Color.fromARGB(255, 76, 189, 199),
+                const Color.fromARGB(255, 20, 212, 233),
               ],
             ),
           ),
@@ -80,7 +80,7 @@ class _HomeState extends State<Home> {
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                   margin: EdgeInsets.fromLTRB(20, 25, 20, 15),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.95),
+                    color: Colors.white.withValues(alpha: 0.95),
                     borderRadius: BorderRadius.circular(30),
                     boxShadow: [
                       BoxShadow(
@@ -160,19 +160,22 @@ class _HomeState extends State<Home> {
                             //   width: 90,
                             //   height: 120,
                             // ),
-                            Icon(weatherIcon, size: 65, color: Colors.orange.shade700),
+                            Icon(
+                              weatherIcon,
+                              size: 65,
+                              color: Colors.orange.shade700,
+                            ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   "${info['desc_value']}",
-                                  
+
                                   style: TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
                                   ),
-                                  
                                 ),
                                 SizedBox(height: 8),
                                 Text(
@@ -196,14 +199,18 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Expanded(
+                      // temperature Wala Box
                       child: Container(
-                        height: 220,
+                        height: 210,
                         decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: Colors.white.withOpacity(0.25),
+
                           boxShadow: [
                             BoxShadow(
-                              color: const Color.fromARGB(31, 244, 228, 228),
-                              blurRadius: 10,
-                              offset: Offset(0, 5),
+                              color: Colors.black12,
+                              blurRadius: 15,
+                              offset: Offset(0, 8),
                             ),
                           ],
                         ),
@@ -212,34 +219,32 @@ class _HomeState extends State<Home> {
                           vertical: 10,
                         ),
                         padding: EdgeInsets.all(25),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.thermostat,
-                              color: const Color.fromARGB(255, 15, 9, 9),
-                              size: 55,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "${info['temp_value']}°C",
+                        //
+                       child: Column(
+  crossAxisAlignment: CrossAxisAlignment.center,
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
 
-                                  style: TextStyle(
-                                    fontSize: 65,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+    Icon(
+      Icons.thermostat,
+      color: const Color.fromARGB(255, 15, 9, 9),
+      size: 55,
+    ),
 
+    SizedBox(height: 10),
+
+    Text(
+      "${info['temp_value']}°C",
+      style: TextStyle(
+        fontSize: 60,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  ],
+),
                         // height: 100,
                       ),
+                      // 
                     ),
                   ],
                 ),
@@ -264,7 +269,11 @@ class _HomeState extends State<Home> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Icon(Icons.air, color: Colors.white, size: 35),
+                                Icon(
+                                  Icons.air,
+                                  color: Colors.blueGrey,
+                                  size: 45,
+                                ),
                               ],
                             ),
 
@@ -274,7 +283,7 @@ class _HomeState extends State<Home> {
                               "${info['air_speed_value']}Km/hr",
                               style: TextStyle(
                                 fontSize: 22,
-                                color: Colors.white,
+                                color: Colors.black87,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -301,7 +310,7 @@ class _HomeState extends State<Home> {
                               children: [
                                 Icon(
                                   Icons.water_drop,
-                                  color: Colors.white,
+                                  color: Colors.blueGrey,
                                   size: 45,
                                 ),
                               ],
@@ -313,7 +322,7 @@ class _HomeState extends State<Home> {
                               "${info['hum_value']}%",
                               style: TextStyle(
                                 fontSize: 22,
-                                color: Colors.white,
+                                color: Colors.black87,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
