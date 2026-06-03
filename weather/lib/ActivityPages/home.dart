@@ -32,7 +32,7 @@ class _HomeState extends State<Home> {
     // String icon = "03d";
     // String icon = info['icon_value'];
     print(icon);
-    var cityName = ["Bhilwara", "Amhedbad", "London", "Ugenda"];
+    var cityName = ["Bhilwara", "Ahmedabad", "London", "Ugenda","Shanghai","Tokyo","New York","Sydney","Paris","Dubai"];
     final random = Random();
     var city = cityName[random.nextInt(cityName.length)];
 
